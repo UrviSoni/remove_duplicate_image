@@ -22,6 +22,6 @@ optional arguments:
 ```
 
 ## Dependency
-Please check `requirements.txt`.
-`pip install -r requirements.txt`
+Please check `requirements.txt`.  
+`pip install -r requirements.txt`  
 Install `python-tk` if virtual enviroment is used.
