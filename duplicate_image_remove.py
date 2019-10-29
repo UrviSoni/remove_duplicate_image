@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # -*- coding: utf-8 -*-
 """duplicate_image_remove.ipynb
 
@@ -8,6 +10,14 @@ Original file is located at
 """
 
 # Commented out IPython magic to ensure Python compatibility.
+import argparse
+
+parser = argparse.ArgumentParser(description='Script to remove duplcate images')
+parser.add_argument("dir", help="directory containing duplicate images")
+parser.add_argument("-s", "--slient",action='store_true' ,help="remove images without confirmation", dest="slient", default=False)
+
+args = parser.parse_args()
+
 import hashlib
 from scipy.misc import imread, imresize, imshow
 import matplotlib.pyplot as plt
@@ -24,12 +34,11 @@ def file_hash(filepath):
 
 import os
 
-os.getcwd()
+#os.getcwd()
+os.chdir(args.dir)
+print(os.getcwd())
 
-os.chdir(r'D:\images')
-os.getcwd()
-
-file_list = os.listdir()
+file_list = os.listdir(os.getcwd())
 print(len(file_list))
 
 import hashlib, os
@@ -48,13 +57,13 @@ duplicates
 
 for file_indexes in duplicates[:30]:
     try:
-    
         plt.subplot(121),plt.imshow(imread(file_list[file_indexes[1]]))
         plt.title(file_indexes[1]), plt.xticks([]), plt.yticks([])
 
         plt.subplot(122),plt.imshow(imread(file_list[file_indexes[0]]))
         plt.title(str(file_indexes[0]) + ' duplicate'), plt.xticks([]), plt.yticks([])
-        plt.show()
+        if args.slient==False:
+            plt.show()
     
     except OSError as e:
         continue
